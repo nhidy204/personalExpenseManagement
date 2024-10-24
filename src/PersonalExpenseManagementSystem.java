@@ -1,5 +1,11 @@
+import entities.Notification;
+import entities.Report;
+import entities.Transaction;
+import entities.User;
+
 import java.util.List;
 import java.util.Scanner;
+
 
 public class PersonalExpenseManagementSystem {
     public static void main(String[] args) {
@@ -43,10 +49,10 @@ public class PersonalExpenseManagementSystem {
             public List<Transaction> getTransactions() {
                 return List.of();
             }
-        };  // Create an instance of Report
-        Notification notification = new Notification();  // Create an instance of Notification
+        };  // Create an instance of entities.Report
+        Notification notification = new Notification();  // Create an instance of entities.Notification
 
-        // User registration and login
+        // entities.User registration and login
         System.out.println("Welcome to the Personal Expense Management System!");
 
         // Check if the user is already registered
@@ -72,7 +78,7 @@ public class PersonalExpenseManagementSystem {
             user.registerUser(username, password);
         }
 
-        // User login
+        // entities.User login
         System.out.print("Login with your username: ");
         String loginUsername = scanner.nextLine();
         System.out.print("Enter your password: ");
@@ -91,13 +97,13 @@ public class PersonalExpenseManagementSystem {
 
         while (true) {
             System.out.println("\nChoose an action:");
-            System.out.println("1. Add Transaction");
+            System.out.println("1. Add entities.Transaction");
             System.out.println("2. List Transactions");
-            System.out.println("3. Edit Transaction");
-            System.out.println("4. Delete Transaction");
-            System.out.println("5. Set Budget");
-            System.out.println("6. Check Budget");
-            System.out.println("7. Update Budget");
+            System.out.println("3. Edit entities.Transaction");
+            System.out.println("4. Delete entities.Transaction");
+            System.out.println("5. Set entities.Budget");
+            System.out.println("6. Check entities.Budget");
+            System.out.println("7. Update entities.Budget");
             System.out.println("8. Manage Financial Goals");
             System.out.println("9. Generate Reports");
             System.out.println("10. Exit");
@@ -105,7 +111,7 @@ public class PersonalExpenseManagementSystem {
             scanner.nextLine(); // Consume newline
 
             switch (choice) {
-                case 1: // Add Transaction
+                case 1: // Add entities.Transaction
                     System.out.print("Enter transaction type (Income/Expense): ");
                     String type = scanner.nextLine();
                     System.out.print("Enter amount: ");
@@ -114,7 +120,7 @@ public class PersonalExpenseManagementSystem {
                     System.out.print("Enter category: ");
                     String category = scanner.nextLine();
                     user.addTransaction(type, amount, category);
-                    System.out.println("Transaction added!");
+                    System.out.println("entities.Transaction added!");
 
                     // Send alerts based on the transaction type
                     if (type.equalsIgnoreCase("Expense") && amount > 100) {  // Example threshold for alerts
@@ -127,7 +133,7 @@ public class PersonalExpenseManagementSystem {
                     user.listTransactions();
                     break;
 
-                case 3: // Edit Transaction
+                case 3: // Edit entities.Transaction
                     System.out.print("Enter transaction ID to edit: ");
                     int editId = scanner.nextInt();
                     scanner.nextLine(); // Consume the newline
@@ -139,40 +145,40 @@ public class PersonalExpenseManagementSystem {
                     System.out.print("Enter new category: ");
                     String newCategory = scanner.nextLine();
                     user.editTransaction(editId, newType, newAmount, newCategory);
-                    System.out.println("Transaction updated!");
+                    System.out.println("entities.Transaction updated!");
                     break;
 
-                case 4: // Delete Transaction
+                case 4: // Delete entities.Transaction
                     System.out.print("Enter transaction ID to delete: ");
                     int deleteId = scanner.nextInt();
                     user.deleteTransaction(deleteId);
-                    System.out.println("Transaction deleted!");
+                    System.out.println("entities.Transaction deleted!");
                     break;
 
-                case 5: // Set Budget
+                case 5: // Set entities.Budget
                     System.out.print("Enter budget category: ");
                     String budgetCategory = scanner.nextLine();
                     System.out.print("Enter budget limit: ");
                     double limit = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline
                     user.setBudget(budgetCategory, limit);
-                    System.out.println("Budget set for category: " + budgetCategory);
+                    System.out.println("entities.Budget set for category: " + budgetCategory);
                     break;
 
-                case 6: // Check Budget
+                case 6: // Check entities.Budget
                     System.out.print("Enter budget category to check: ");
                     String checkCategory = scanner.nextLine();
                     user.budgetManager.checkBudget(checkCategory);
                     break;
 
-                case 7: // Update Budget
+                case 7: // Update entities.Budget
                     System.out.print("Enter budget category to update: ");
                     String updateCategory = scanner.nextLine();
                     System.out.print("Enter new budget limit: ");
                     double newLimit = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline
                     user.budgetManager.updateBudget(updateCategory, newLimit);
-                    System.out.println("Budget updated for category: " + updateCategory);
+                    System.out.println("entities.Budget updated for category: " + updateCategory);
                     break;
 
                 case 8: // Manage Financial Goals
