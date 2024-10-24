@@ -1,3 +1,5 @@
+import interfaces.*;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,49 +10,6 @@ import java.util.ArrayList;
 import java.time.ZoneId;
 import java.io.File;
 import java.util.Date;
-// Interface Definitions
-interface IUserManagement {
-    void registerUser(String username, String password);
-    void loginUser(String username, String password);
-    double getUserBalance();
-    void viewReports();
-}
-
-interface ITransactionManagement {
-    void addTransaction(String type, double amount, String category);
-    void editTransaction(int transactionId, String type, double amount, String category);
-    void deleteTransaction(int transactionId);
-    void listTransactions();
-}
-
-interface IBudgetManagement {
-    void setBudget(String category, double limit);
-    void checkBudget(String category);
-    void updateBudget(String category, double newLimit);
-    void manageBudget(String budgetCategory, double limit);
-}
-
-interface IFinancialGoalManagement {
-    void setGoal(String goalName, double targetAmount);
-    void trackProgress(String goalName);
-    void adjustGoal(String goalName, double newTargetAmount);
-    void contributeToGoal(String goalName, double amount);
-    void manageGoal(String goalName, double targetAmount);
-}
-
-interface IReportGeneration {
-    void generateMonthlyReport();
-    void generateAnnualReport();
-    void generateCategoryReport(String category);
-    void generateCharts();
-    List<Transaction> getTransactions();
-}
-
-interface INotificationService {
-    void sendBudgetAlert(String category);
-    void sendGoalAlert(String goalName);
-    void sendSpendingPatternAlert();
-}
 
 // User Class
 abstract class User implements IUserManagement, ITransactionManagement, IBudgetManagement, IFinancialGoalManagement, IReportGeneration {
