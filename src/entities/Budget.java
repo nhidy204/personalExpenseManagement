@@ -1,7 +1,5 @@
 package entities;
-
 import interfaces.IBudgetManagement;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,12 +7,14 @@ import java.util.Map;
 public class Budget implements IBudgetManagement {
     private final Map<String, Double> categoryBudgets = new HashMap<>();
     private final Map<String, Double> currentSpendings = new HashMap<>();
+    private Double limit;
 
     @Override
-    public void setBudget(String category, double limit) {
+    public boolean setBudget(String category) {
         categoryBudgets.put(category, limit);
         currentSpendings.put(category, 0.0);  // Start with 0 spending
         System.out.println("Budget set for " + category + ": $" + limit);
+        return false;
     }
 
     @Override
@@ -32,7 +32,11 @@ public class Budget implements IBudgetManagement {
 
     @Override
     public void manageBudget(String budgetCategory, double limit) {
-        // Not implemented yet
+        if (categoryBudgets.containsKey(budgetCategory)) {
+            updateBudget(budgetCategory, limit);
+        } else {
+            setBudget(budgetCategory);
+        }
     }
 
     // Method to record spending for each category

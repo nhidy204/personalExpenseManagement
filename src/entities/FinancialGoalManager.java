@@ -1,7 +1,5 @@
 package entities;
-
 import interfaces.IFinancialGoalManagement;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,6 +50,12 @@ class FinancialGoalManager implements IFinancialGoalManagement {
 
     @Override
     public void manageGoal(String goalName, double targetAmount) {
-
+        for (FinancialGoal goal : goals) {
+            if (goal.getGoalName().equals(goalName)) {
+                adjustGoal(goalName, targetAmount);
+                return;
+            }
+        }
+        setGoal(goalName, targetAmount);
     }
 }

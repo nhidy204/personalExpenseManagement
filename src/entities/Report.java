@@ -1,7 +1,5 @@
 package entities;
-
 import interfaces.IReportGeneration;
-
 import java.util.List;
 
 // Report Class
