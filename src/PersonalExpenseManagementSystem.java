@@ -26,8 +26,6 @@ public class PersonalExpenseManagementSystem {
             @Override
             public void generateMonthlyReport() {
 
-
-
             }
 
             @Override
@@ -97,13 +95,13 @@ public class PersonalExpenseManagementSystem {
 
         while (true) {
             System.out.println("\nChoose an action:");
-            System.out.println("1. Add entities.Transaction");
+            System.out.println("1. Add Transaction");
             System.out.println("2. List Transactions");
-            System.out.println("3. Edit entities.Transaction");
-            System.out.println("4. Delete entities.Transaction");
-            System.out.println("5. Set entities.Budget");
-            System.out.println("6. Check entities.Budget");
-            System.out.println("7. Update entities.Budget");
+            System.out.println("3. Edit Transaction");
+            System.out.println("4. Delete Transaction");
+            System.out.println("5. Set Budget");
+            System.out.println("6. Check Budget");
+            System.out.println("7. Update Budget");
             System.out.println("8. Manage Financial Goals");
             System.out.println("9. Generate Reports");
             System.out.println("10. Exit");
@@ -120,7 +118,7 @@ public class PersonalExpenseManagementSystem {
                     System.out.print("Enter category: ");
                     String category = scanner.nextLine();
                     user.addTransaction(type, amount, category);
-                    System.out.println("entities.Transaction added!");
+                    System.out.println("Transaction added!");
 
                     // Send alerts based on the transaction type
                     if (type.equalsIgnoreCase("Expense") && amount > 100) {  // Example threshold for alerts
@@ -145,14 +143,14 @@ public class PersonalExpenseManagementSystem {
                     System.out.print("Enter new category: ");
                     String newCategory = scanner.nextLine();
                     user.editTransaction(editId, newType, newAmount, newCategory);
-                    System.out.println("entities.Transaction updated!");
+                    System.out.println("Transaction updated!");
                     break;
 
                 case 4: // Delete entities.Transaction
                     System.out.print("Enter transaction ID to delete: ");
                     int deleteId = scanner.nextInt();
                     user.deleteTransaction(deleteId);
-                    System.out.println("entities.Transaction deleted!");
+                    System.out.println("Transaction deleted!");
                     break;
 
                 case 5: // Set entities.Budget
@@ -161,8 +159,8 @@ public class PersonalExpenseManagementSystem {
                     System.out.print("Enter budget limit: ");
                     double limit = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline
-                    user.setBudget(budgetCategory, limit);
-                    System.out.println("entities.Budget set for category: " + budgetCategory);
+                    user.setBudget(budgetCategory);
+                    System.out.println("Budget set for category: " + budgetCategory);
                     break;
 
                 case 6: // Check entities.Budget
@@ -178,7 +176,7 @@ public class PersonalExpenseManagementSystem {
                     double newLimit = scanner.nextDouble();
                     scanner.nextLine(); // Consume the newline
                     user.budgetManager.updateBudget(updateCategory, newLimit);
-                    System.out.println("entities.Budget updated for category: " + updateCategory);
+                    System.out.println("Budget updated for category: " + updateCategory);
                     break;
 
                 case 8: // Manage Financial Goals

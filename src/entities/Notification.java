@@ -1,5 +1,4 @@
 package entities;
-
 import interfaces.INotificationService;
 
 // Notification Class

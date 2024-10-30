@@ -1,5 +1,4 @@
 package entities;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -25,7 +24,7 @@ public class Transaction {
         return id;
     }
 
-    public String getType() {  // Add this method
+    public String getType() {
         return type;
     }
 
@@ -73,6 +72,6 @@ public class Transaction {
 
 
     public String getCategory() {
-        return category;  // Fix this method
+        return category;
     }
 }

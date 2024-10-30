@@ -1,8 +1,5 @@
 package entities;
-
-
 import interfaces.*;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +16,7 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
     private final List<Transaction> transactions;
     public final Budget budgetManager = new Budget();  // To handle budgets
     private final FinancialGoalManager goalManager = new FinancialGoalManager();  // To handle financial goals
+    private String limit;
 
     public User(String username, String password, double balance) {
         this.username = username;
@@ -66,7 +64,15 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
         }
     }
 
-    private void saveTransactions(File userFile) {
+    private void saveTransactions(File userFile) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(userFile, true))) {
+            writer.write("Transactions:");
+            writer.newLine();
+            for (Transaction transaction : transactions) {
+                writer.write(transaction.toString());  // Assuming Transaction has a meaningful toString() implementation
+                writer.newLine();
+            }
+        }
     }
 
     private void saveUserInfo(File userFile) throws IOException {
@@ -80,7 +86,7 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
 
     @Override
     public void registerUser(String username, String password) {
-        System.out.println("entities.User registered: " + username);
+        System.out.println("User registered: " + username);
     }
 
     @Override
@@ -118,7 +124,7 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
             notification.sendBudgetAlert(category);  // Trigger budget alert
         }
 
-        System.out.println("entities.Transaction added.");
+        System.out.println("Transaction added.");
     }
 
     @Override
@@ -131,11 +137,11 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
                 t.setCategory(category);
                 // Adjust balance based on old and new amount
                 balance += (amount - oldAmount);
-                System.out.println("entities.Transaction updated.");
+                System.out.println("Transaction updated.");
                 return;
             }
         }
-        System.out.println("entities.Transaction not found.");
+        System.out.println("Transaction not found.");
     }
 
     @Override
@@ -144,11 +150,11 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
             if (t.getId() == transactionId) {
                 transactions.remove(t);
                 balance -= t.getAmount();  // Adjust balance
-                System.out.println("entities.Transaction deleted.");
+                System.out.println("Transaction deleted.");
                 return;
             }
         }
-        System.out.println("entities.Transaction not found.");
+        System.out.println("Transaction not found.");
     }
 
     @Override
@@ -163,24 +169,34 @@ public abstract class User implements IUserManagement, ITransactionManagement, I
     }
 
     @Override
-    public void setBudget(String category, double limit) {
-        budgetManager.setBudget(category, limit);
-        System.out.println("entities.Budget set for " + category + ": " + limit);
+    public boolean setBudget(String category) {
+        budgetManager.setBudget(category);
+        System.out.println("Budget set for " + category + ": " + limit);
+        return false;
     }
 
     @Override
     public void checkBudget(String category) {
-
+        if (budgetManager.isOverBudget(category)) {
+            System.out.println("Alert: You have exceeded your budget for " + category);
+        } else {
+            System.out.println("You are within your budget for " + category);
+        }
     }
 
     @Override
     public void updateBudget(String category, double newLimit) {
-
+        budgetManager.setBudget(category);
+        System.out.println("Updated budget for " + category + " to " + newLimit);
     }
 
     @Override
     public void manageBudget(String budgetCategory, double limit) {
-
+        if (budgetManager.setBudget(budgetCategory)) {
+            updateBudget(budgetCategory, limit);
+        } else {
+            setBudget(budgetCategory);
+        }
     }
 
     @Override
